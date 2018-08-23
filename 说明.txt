@@ -1,0 +1,18 @@
+[安装说明]
+一.安装python3
+    1.windows下安装"python-3.6.5-amd64.exe"
+    2.macOS下安装"python-3.6.5-macosx10.9.pkg"
+
+二.安装读取excel文档的库
+    1.windows下点击"安装插件.bat"安装
+    2.macOS下，在shell下进入目录xlrd-1.1.0,然后执行"python setup.py install"
+
+
+[配置说明]
+1.用文本编辑器打开py/config.py文件
+2.根据自己项目的实际情况，修改"导表目录"、"忽略文件列表"和"关联导表"
+
+
+[运行说明]
+1.windows下执行"startCheck.bat"
+2.macOS下执行"bash startCheck.sh"
