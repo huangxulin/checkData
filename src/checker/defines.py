@@ -13,12 +13,14 @@ import checker.generalChecker
 import checker.tableFiledChecker
 import checker.fallItem
 import checker.levelGroupItem
+import checker.factionTrialRewardConfig
 
 checkerList = (
     (".*", checker.generalChecker.Checker()), # 通用检查器
     (".*", checker.tableFiledChecker.Checker()), # 额外定义的导表字段检查器
     ("fallItem_", checker.fallItem.Checker()), # fallItem表检查器
     ("levelGroupItem_", checker.levelGroupItem.Checker()), # levelGroupItem表检查器
+    ("factionTrialRewardConfig_", checker.factionTrialRewardConfig.Checker()) # factionTrialRewardConfig表检查器
 )
 
 

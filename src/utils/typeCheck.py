@@ -47,9 +47,18 @@ def isList(s):
         return False
     lst = s.split(",")
     return len(lst) >= 2
+
+def isKV(s):
+    '''是否key-value对
+    '''
+    if not isinstance(s, str):
+        return False
+    if re.match("^[^,:]+:[^,:]+(,[^,:]+:[^,:]+)*$", s):
+        return True
+    return False
         
 
 
 if __name__ == "__main__":
-    print(isList("A"))
+    print(isKV("1:30,2:40,3:50,a:abc,b:123,c:www"))
     

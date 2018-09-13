@@ -15,6 +15,7 @@ import rule.field.fieldRuleS
 import rule.field.fieldRuleL
 import rule.field.fieldRuleIL
 import rule.field.fieldRuleRE
+import rule.field.fieldRuleKV
 
 ruleList = {
     "I": rule.field.fieldRuleI.FieldRule(), # 整数检查
@@ -24,5 +25,6 @@ ruleList = {
     "L": rule.field.fieldRuleL.FieldRule(), # 列表(数组)检查，如: "1001,1002,1003"、"hp,mp,dam"
     "IL": rule.field.fieldRuleIL.FieldRule(), # 整数列表(数组)检查，如: "1001,1002,1003"、"1,2,3"
     "RE": rule.field.fieldRuleRE.FieldRule(), # 正则表达式检查，如: "^\d{3}"、"^[\d\w]+$"
+    "KV": rule.field.fieldRuleKV.FieldRule(), # key-value对，如: "1:30,2:40,3:50"、"a:abc,b:123,c:www"
     
 }
