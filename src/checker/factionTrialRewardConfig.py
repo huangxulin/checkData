@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-Created on 2018年7月13日
+Created on 2018年9月13日
 
 @author: xulin.huang
 '''
@@ -13,10 +13,11 @@ class Checker(CustomChecker):
     def checkField(self, fieldObj):
         fieldName = fieldObj.name
         value = fieldObj.value
-        if value and fieldName == "itemWeightStr":
-            return self.checkItemWeightStr(value)
-        if value and fieldName == "itemStr":
-            return self.checkItemStr(value)
+        if value:
+            if fieldName == "itemWeightStr":
+                return self.checkItemWeightStr(value)
+            if fieldName == "itemStr":
+                return self.checkItemStr(value)
         return True
     
     def checkItemWeightStr(self, value):

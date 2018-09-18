@@ -4,15 +4,35 @@
 一个导表，读取器只有1个，检查器可以多个
 '''
 
-def handle(dirPath, fileName):
+# def handle(dirPath, fileName):
+#     readerObj = reader.getReader(dirPath, fileName)
+#     if not readerObj:
+# #         log.log("导表找不到读取器:{}", fileName)
+#         return
+#     checkerList = checker.getCheckerList(fileName)
+#     if not checkerList:
+#         setError(True)
+#         log.log("导表找不到任何检查器:{}", fileName)
+#         return
+#     
+#     try:
+#         readerObj.readData()
+# #         print(readerObj, "\n")
+#     except:
+#         setError(True)
+#         log.log("导表读取错误, reader:{},fileName:{}", printInfo.printClassInfo(readerObj), fileName)
+#         traceback.print_stack(log.log)
+#         return
+#     
+#     addTable(fileName, readerObj)
+#     doCheck(fileName, readerObj, checkerList)
+
+def doRead(dirPath, fileName):
+    '''读取导表
+    '''
     readerObj = reader.getReader(dirPath, fileName)
     if not readerObj:
 #         log.log("导表找不到读取器:{}", fileName)
-        return
-    checkerList = checker.getCheckerList(fileName)
-    if not checkerList:
-        setError(True)
-        log.log("导表找不到任何检查器:{}", fileName)
         return
     
     try:
@@ -24,8 +44,15 @@ def handle(dirPath, fileName):
         traceback.print_stack(log.log)
         return
     
-    gTableList[fileName] = readerObj
-    doCheck(fileName, readerObj, checkerList)
+    addTable(fileName, readerObj)
+    
+def checkAll():
+    '''检查全部导表
+    '''
+    for fileName, readerObj in gTableManager.tableList.items():
+        checkerList = checker.getCheckerList(fileName)
+        if checkerList:
+            doCheck(fileName, readerObj, checkerList)
     
 def doCheck(fileName, readerObj, checkerList):
     '''执行检查
@@ -61,14 +88,13 @@ def doCheck(fileName, readerObj, checkerList):
         log.log("{}\n".format("-" * 40))
         error = "导表:{}\n{}\n\n".format(fileName, "\n".join(errorList))
         log.log(error)
-    
         
 def checkDuplicateId():
     '''检查重复id
     '''
     for patternList in config.joinFileList:
         readerList = []
-        for fileName, readerObj in gTableList.items():
+        for fileName, readerObj in gTableManager.tableList.items():
             for pattern in patternList:
                 if re.match(pattern, fileName):
                     readerList.append(readerObj)
@@ -123,6 +149,16 @@ def isIgnoreFile(fileName):
             return True
     return False
 
+def addTable(fileName, readerObj):
+    '''把导表加入导表管理器
+    '''
+    gTableManager.add(fileName, readerObj)
+
+def getByLikeName(likeName):
+    '''根据文件名获取类似的导表
+    '''
+    return gTableManager.getByLikeName(likeName)
+
 
 import re
 import reader
@@ -131,8 +167,9 @@ import log
 import traceback
 import config
 from utils import printInfo
+import table.object
 
-if "gTableList" not in globals():
-    global gTableList, gError
-    gTableList = {}
+if "gTableManager" not in globals():
+    global gTableManager, gError
+    gTableManager = table.object.TableManager()
     gError = False

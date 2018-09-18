@@ -17,8 +17,9 @@ def start():
             for fileName in fileNames:
                 if table.isIgnoreFile(fileName):
                     continue
-                table.handle(dirPath, fileName)
+                table.doRead(dirPath, fileName)
                 
+    table.checkAll()                
     table.checkDuplicateId()
             
 

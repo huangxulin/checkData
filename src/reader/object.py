@@ -109,7 +109,6 @@ class Reader(object):
             fieldObj = self.data[rowNo].get(colNo)
             if fieldObj:
                 yield rowNo, fieldObj
-        
 
     def readData(self):
         '''读取导表数据
@@ -177,6 +176,15 @@ class Reader(object):
             if len(fieldList) > 1:
                 duplicateIdList.append(idValue)
         return duplicateIdList
+    
+    def findSameValueField(self, colNo, value):
+        '''搜寻相同值的字段
+        '''
+        for rowNo, fieldObj in self.iterColData(colNo):
+            if fieldObj.value == value:
+                return fieldObj
+        return None
+            
     
     def __str__(self):
         infoList = []
